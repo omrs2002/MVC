@@ -8,6 +8,7 @@ namespace MVCCourse2017.Models
 {
     public class MembershipType
     {
+
         public byte Id { get; set; }
         [Required]
         public string Name { get; set; }
@@ -18,6 +19,10 @@ namespace MVCCourse2017.Models
 
     public class Customer
     {
+        public Customer()
+        {
+            Birthdate = DateTime.Today.AddYears(18);
+        }
         public int Id { get; set; }
 
         [Required]
@@ -33,6 +38,10 @@ namespace MVCCourse2017.Models
 
         [Display(Name = "Date of Birth")]
         [Required]
+        [Minimum15YearsIfAMember]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Birthdate { get; set; }
+
     }
 }

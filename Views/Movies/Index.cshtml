@@ -16,7 +16,7 @@
 }
 else
 {
-<table class="table">
+<table class="table" id="tblM">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -64,3 +64,14 @@ else
 
 </table>
 }
+
+
+@section scripts
+    {
+    <script >
+    $(document).ready(
+        function () {
+            //$("#tblM").DataTable();
+        });
+    </script>
+    }

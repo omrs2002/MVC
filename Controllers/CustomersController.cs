@@ -31,13 +31,19 @@ namespace MVCCourse2017.Controllers
             return View(xcust);
         }
 
+        public ViewResult Index2()
+        {return View();}
+
+
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(NewCustomerVM viewModel)
         {
             try
             {
-                if(!ModelState.IsValid)
+
+                if (!ModelState.IsValid)
                 {
                     var viewM = new NewCustomerVM
                     {
@@ -62,6 +68,7 @@ namespace MVCCourse2017.Controllers
             }
             catch (Exception ex)
             {
+                Response.Write(ex.Message);
                 throw ex;
                 //return RedirectToAction("Index", "Customers");
             }
@@ -72,7 +79,10 @@ namespace MVCCourse2017.Controllers
         public ActionResult Create()
         {
             NewCustomerVM vm = new NewCustomerVM
-            { MembershipTypes = _context.MembershipTypes };
+            {
+                Customer = new Customer(),
+                MembershipTypes = _context.MembershipTypes
+            };
             return View(vm);
         }
 
@@ -84,6 +94,19 @@ namespace MVCCourse2017.Controllers
             //IEnumerable<MVCCourse2017.Models.Customer> xx = xcust;
             return View(xcust);
         }
+
+
+        // GET: Customers
+        public ActionResult Delete(int id)
+        {
+            var xcust = _context.Customers.Single(c => c.Id == id);
+            if (xcust == null)
+                throw new Exception("Customer Not Found" );
+            _context.Customers.Remove(xcust);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Customers");
+        }
+
 
         // GET: Customers
         public ActionResult Edit(int id)

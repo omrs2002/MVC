@@ -46,6 +46,16 @@ namespace MVCCourse2017.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    var viewM = new MovieVM
+                    {
+                        Movie = viewModel.Movie,
+                        Genres = _context.Genres.ToList()
+                    };
+                    return View("Create", viewM);
+                }
+
                 if (viewModel.Movie.Id < 1)
                     _context.Movies.Add(viewModel.Movie);
                 else

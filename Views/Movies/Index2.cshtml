@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Movies From JS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies From JQ</h2>
+
+<p>
+    @Html.ActionLink("Create Movie", "Create")
+</p>
+<table class="table table-bordered table-hover" id="tblMovies">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Release Date
+            </th>
+            <th>
+                NumberInStock
+            </th>
+            <th>
+              delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+
+@section scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+                var _dataTable = $("#tblMovies").DataTable({
+                    
+                    ajax: {
+                        
+                        url: "/api/customers/GetCustomers",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "name",
+                            render: function (data, type, customer) {
+                                //debugger;
+                                return "<a href='/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
+                            }
+                        },
+                        { data: "membershipType.name" },
+                        {
+                            data: "birthdate",
+                            render: function (data) {
+                                //debugger;
+                                return data.substring(0, 10);
+                            }
+                        },
+                        {
+                            data: "id",
+                            render: function (data) {
+                                return "<button class='btn-link js-delete' data-custid=" + data + ">Delete</button>";
+                            }
+                        }
+                    ]
+                });
+
+
+                //without filter(render in page for each control):
+                //$("#tblCustomers .js-delete").on("click",
+                //with filter(render in page once time):
+                $("#tblCustomers").on("click", ".js-delete",
+
+                    function () {
+                        debugger;
+                        var deletButton = $(this);
+
+                        bootbox.confirm(
+                            "Are you sure you wish to delete this customer  with ID :" + deletButton.attr("data-custid") + "?",
+                            function (result) {
+
+                                if (result) {
+
+                                    $.ajax(
+                                        {
+                                            url: "/api/customers/DeleteCustomer?cID=" + deletButton.attr("data-custid"),
+                                            method: "DELETE",
+                                            success: function () {
+                                                // debugger;
+                                                //alert('Deleted!');
+                                                //Delete but still in memort for search:
+                                                //deletButton.parents("tr").remove();
+
+                                                _dataTable.row(deletButton.parents("tr")).remove().draw();
+
+
+                                            }
+                                        }
+                                    );
+
+                                }
+
+                            }
+                        );
+                    }
+                )
+
+            }
+        );
+
+
+    </script>
+
+}

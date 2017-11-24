@@ -77,3 +77,13 @@ D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.Ad
 D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.AddGenreData.resources
 D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.lastUpdatesOnCustomers.resources
 D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.LastUpdates.resources
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.csprojResolveAssemblyReference.cache
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\System.Net.Http.Formatting.dll
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\System.Web.Http.dll
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\System.Web.Http.WebHost.dll
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\System.Net.Http.Formatting.xml
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\System.Web.Http.xml
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\System.Web.Http.WebHost.xml
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.AddEmplyee.resources
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\AutoMapper.dll
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\AutoMapper.xml

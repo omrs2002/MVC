@@ -8,13 +8,26 @@
 
 @using (Html.BeginForm("Save", "Customers"))
 {
-    @Html.AntiForgeryToken()
+    
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.Name)
         @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Customer.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <div>
+            <label>Member Ship Type</label>
+        </div>
+        <div class="dropdown">
+            @Html.DropDownListFor(
+           m => m.Customer.MembershipTypeId,
+           new SelectList(Model.MembershipTypes, "Id", "Name", ""), "Please Select..", new { @class = "form-control" }
+       )
+
+            @Html.ValidationMessageFor(model => model.Customer.MembershipTypeId, "", new { @class = "text-danger" })
+        </div>
     </div>
     <div class="form-group">
         <label>Date Of Birth</label>
@@ -26,22 +39,11 @@
             @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter)Subscribed To News letter?
         </label>
     </div>
-    <div class="form-group">
-        <div>
-            <label>Member Ship Type</label>
-        </div>
-        <div class="dropdown">
-            @Html.DropDownListFor(
-           m => m.Customer.MembershipTypeId,
-           new SelectList(Model.MembershipTypes, "Id", "Name", "-1"), "Please Select..", new { @class = "form-control" }
-       )
-
-            @Html.ValidationMessageFor(model => model.Customer.MembershipTypeId, "*", new { @class = "text-danger" })
-        </div>
-    </div>
+    
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
+            @Html.AntiForgeryToken()
             <input type="submit" value="Save" class="btn btn-primary" />
 
         </div>
@@ -52,6 +54,7 @@
     </div>
 
     @section Scripts {
+        @*this Code for enable client validation*@
         @Scripts.Render("~/bundles/jqueryval")
     }
 

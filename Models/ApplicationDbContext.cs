@@ -13,6 +13,7 @@ namespace MVCCourse2017.Models
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MembershipType> MembershipTypes { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -23,6 +24,10 @@ namespace MVCCourse2017.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<MVCCourse2017.Models.MovieDto> MovieDtoes { get; set; }
+
+        public System.Data.Entity.DbSet<MVCCourse2017.Models.GenreDto> GenreDtoes { get; set; }
     }
 
 }

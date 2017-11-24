@@ -1,0 +1,21 @@
+﻿@model MVCCourse2017.Models.Employee
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 id="myh2"> @Model.FullName  </h2>
+<p><input type="button" id="btnAlert" value="test button" onclick="return testJS();" /></p>
+
+<script type="text/javascript">
+
+    function testJS() {
+        debugger;
+        var myhtwo = document.getElementById('myh2');
+        //alert(myhtwo.innerText);
+        alert( '@Model.FullName' );
+    }
+
+
+</script>
+

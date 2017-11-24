@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MVCCourse2017.Models.Customer>
 
 @{
-    ViewBag.Title = "Movies";
+    ViewBag.Title = "Customers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,50 +17,118 @@
 }
 else
 {
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsSubscribedToNewsletter)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MembershipTypeId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Birthdate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MembershipType.DiscountRate)
-        </th>
-        <th></th>
-    </tr>
+    <table class="table" id="tblCustomers">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsSubscribedToNewsletter)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MembershipTypeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Birthdate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MembershipType.DiscountRate)
+                </th>
+                <th>
+                    Actions
+                </th>
+                <th>
+                    Delete by JQuery
+                </th>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>@Html.ActionLink(item.Name, "Details", "Customers", new { id = item.Id }, null)</td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsSubscribedToNewsletter)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MembershipTypeId)-
-            @Html.DisplayFor(modelItem => item.MembershipType.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MembershipType.DiscountRate)%
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(item.Name, "Details", "Customers", new { id = item.Id }, null)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsSubscribedToNewsletter)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MembershipTypeId)-
+                        @Html.DisplayFor(modelItem => item.MembershipType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Birthdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MembershipType.DiscountRate)%
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id },
+            new { onclick = "return confirm('Are you sure you wish to delete this customer?');" }
+           )
+
+                    </td>
+                    <td>
+                        <button class="btn btn-danger  btn-xs js-delete"
+                                data-custid="@item.Id">
+                            X
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
-</table>
+@section scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+
+                $("#tblCustomers").DataTable();
+
+                //without filter(render in page for each control):
+                //$("#tblCustomers .js-delete").on("click",
+                //with filter(render in page once time):
+                $("#tblCustomers").on("click", ".js-delete",
+
+                    function () {
+                        debugger;
+                        var deletButton = $(this);
+
+                        bootbox.confirm(
+                            "Are you sure you wish to delete this customer  with ID :" + $(this).attr("data-custid") + "?",
+                            function (result) {
+
+                                if (result) {
+
+                                    $.ajax(
+                                        {
+                                            url: "/api/customers/DeleteCustomer?cID=" + $(this).attr("data-custid"),
+                                            method: "DELETE",
+                                            success: function () {
+                                                // debugger;
+                                                //alert('Deleted!');
+                                                deletButton.parents("tr").remove();
+                                            }
+                                        }
+                                    );
+
+                                }
+
+                            }
+                        );
+                    }
+                )
+
+            }
+        );
+
+
+    </script>
+
 }
