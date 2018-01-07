@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Movies From JS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Movies From JQ</h2>
+<table class="table table-bordered table-hover" id="tblMovies">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+
+@section scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+                var _dataTable = $("#tblMovies").DataTable({
+
+                    ajax: {
+
+                        url: "/api/Movies/GetMovieDtoes",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "name"
+                        },
+                    ]
+                });
+            });
+
+
+    </script>
+
+}

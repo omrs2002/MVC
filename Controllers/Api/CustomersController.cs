@@ -17,6 +17,24 @@ namespace MVCCourse2017.Controllers.Api
         public CustomersController()
         { _context = new ApplicationDbContext(); }
 
+        
+        // GET /api/customers
+        public IHttpActionResult GetCustomersQ(string query = null)
+        {
+            var customersQuery = _context.Customers
+                .Include(c => c.MembershipType);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+
+            var customerDtos = customersQuery
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
+
+            return Ok(customerDtos);
+        }
+
+
         [HttpGet]
         public IEnumerable<CustomerDto> GetCustomers()
         {

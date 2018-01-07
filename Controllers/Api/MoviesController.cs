@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MVCCourse2017.Models;
+using AutoMapper;
 
 namespace MVCCourse2017.Controllers.Api
 {
@@ -16,22 +17,44 @@ namespace MVCCourse2017.Controllers.Api
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Movies
-        [HttpGet]
-        public IQueryable<MovieDto> GetMovieDtoes()
+
+        public IEnumerable<MovieDto> GetMoviesQ(string query = null)
         {
-            return db.MovieDtoes;
+            var moviesQuery = db.Movies
+                .Include(m => m.Genre)
+                .Where(m => m.NumberInStock > 0);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                moviesQuery = moviesQuery.Where(m => m.Name.Contains(query));
+
+            return moviesQuery
+                .ToList()
+                .Select(Mapper.Map<Movie, MovieDto>);
         }
 
-        // GET: api/Movies/5
+
+
+        // GET: api/Movies
+        [HttpGet]
+        public IEnumerable<MovieDto> GetMovieDtoes()
+        {
+            return db.Movies.ToList().Select
+                (
+                    Mapper.Map<Movie, MovieDto>
+                );
+        }
+
         [ResponseType(typeof(MovieDto))]
         [HttpGet]
-        public MovieDto GetMovieDto(int id)
+        public IHttpActionResult GetMovieDto(int id)
         {
-            MovieDto movieDto = db.MovieDtoes.Find(id);
-            if (movieDto == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            return movieDto;
+            Movie movie = db.Movies.Single(m => m.Id== id);
+            if (movie == null)
+                return NotFound();
+
+            var xDto = Mapper.Map<Movie, MovieDto>(movie);
+
+            return Ok(xDto);
         }
 
         // PUT: api/Movies/5
@@ -57,21 +80,14 @@ namespace MVCCourse2017.Controllers.Api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MovieDtoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Movies
-        
+
         [HttpPost]
         public IHttpActionResult PostMovieDto(MovieDto movieDto)
         {
@@ -80,7 +96,9 @@ namespace MVCCourse2017.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            db.MovieDtoes.Add(movieDto);
+            var x = Mapper.Map<MovieDto, Movie>(movieDto);
+
+            db.Movies.Add(x);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = movieDto.Id }, movieDto);
@@ -89,13 +107,13 @@ namespace MVCCourse2017.Controllers.Api
         // DELETE: api/Movies/5
         public IHttpActionResult DeleteMovieDto(int id)
         {
-            MovieDto movieDto = db.MovieDtoes.Find(id);
+            Movie movieDto = db.Movies.Find(id);
             if (movieDto == null)
             {
                 return NotFound();
             }
 
-            db.MovieDtoes.Remove(movieDto);
+            db.Movies.Remove(movieDto);
             db.SaveChanges();
 
             return Ok(movieDto);

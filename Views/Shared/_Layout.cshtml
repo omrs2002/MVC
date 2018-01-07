@@ -4,11 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - MVC 2017</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -22,27 +24,82 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Roles", "Users", "Account")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Customers <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+                            <li>@Html.ActionLink("Customers From JQ", "Index2", "Customers")</li>
+                            <li>@Html.ActionLink("Customers MVC Grid", "CustomersGrid", "Customers")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Movies <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Movies", "Index", "Movies")</li>
+                            <li>@Html.ActionLink("Movies From JQ", "Index2", "Movies")</li>
+                            <li>@Html.ActionLink("Movies Grid", "MoviesGrid", "Movies")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Movies Genres", "Index", "Genres")</li>
+                            <li>@Html.ActionLink("Movies Genres Grid", "Grid", "Genres")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            Rentals
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Show Rentals", "Index", "Rentals")</li>
+                            <li>@Html.ActionLink("Rentals Grid", "RentalGrid", "Rentals")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Create", "Create", "Rentals")</li>
+                            <li>@Html.ActionLink("Create With Client validation", "CreateWClintVal", "Rentals")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
+
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
-                    <li>@Html.ActionLink("Customers From JQ", "Index2", "Customers")</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
 
-                    <li>@Html.ActionLink("Movies", "Index", "Movies")</li>
-                    <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
                 </ul>
+
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
+        <br />
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - MVC 2017</p>
+
+
+            <div class="fb-like"
+                 data-share="true"
+                 data-width="450"
+                 data-show-faces="true">
+            </div>
+
         </footer>
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
 </body>
 </html>

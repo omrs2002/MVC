@@ -15,15 +15,6 @@
                 Name
             </th>
             <th>
-                Genre
-            </th>
-            <th>
-                Release Date
-            </th>
-            <th>
-                NumberInStock
-            </th>
-            <th>
               delete
             </th>
         </tr>
@@ -43,23 +34,15 @@
                     
                     ajax: {
                         
-                        url: "/api/customers/GetCustomers",
+                        url: "/api/Movies/GetMovieDtoes",
                         dataSrc: ""
                     },
                     columns: [
                         {
                             data: "name",
-                            render: function (data, type, customer) {
+                            render: function (data, type, movie) {
                                 //debugger;
-                                return "<a href='/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
-                            }
-                        },
-                        { data: "membershipType.name" },
-                        {
-                            data: "birthdate",
-                            render: function (data) {
-                                //debugger;
-                                return data.substring(0, 10);
+                                return "<a href='/Movies/Edit/" + movie.id + "'>" + movie.name + "</a>";
                             }
                         },
                         {
@@ -75,7 +58,7 @@
                 //without filter(render in page for each control):
                 //$("#tblCustomers .js-delete").on("click",
                 //with filter(render in page once time):
-                $("#tblCustomers").on("click", ".js-delete",
+                $("#tblMovies").on("click", ".js-delete",
 
                     function () {
                         debugger;
@@ -89,7 +72,7 @@
 
                                     $.ajax(
                                         {
-                                            url: "/api/customers/DeleteCustomer?cID=" + deletButton.attr("data-custid"),
+                                            url: "/api/Movies/DeleteMovieDto?id=" + deletButton.attr("data-custid"),
                                             method: "DELETE",
                                             success: function () {
                                                 // debugger;
@@ -98,8 +81,6 @@
                                                 //deletButton.parents("tr").remove();
 
                                                 _dataTable.row(deletButton.parents("tr")).remove().draw();
-
-
                                             }
                                         }
                                     );

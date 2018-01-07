@@ -1,0 +1,22 @@
+﻿@using GridMvc.Html
+@model IEnumerable<MVCCourse2017.Models.Genre>
+
+@{
+    ViewBag.Title = "Grid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Genres Grid</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@Html.Grid(Model).Columns(columns =>
+                     {
+                         columns.Add(g => g.Id).Titled("Genr ID").SetWidth(110);
+                         columns.Add(g => g.Name).Sortable(true);
+                     }).WithPaging(5)
+
+<br />
+

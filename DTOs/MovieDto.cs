@@ -18,8 +18,6 @@ namespace MVCCourse2017.Models
     public class MovieDto
     {
         public int Id { get; set; }
-
-        [StringLength(255)]
         public string Name { get; set; }
 
         public GenreDto Genre { get; set; }

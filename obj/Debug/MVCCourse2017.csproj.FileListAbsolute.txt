@@ -87,3 +87,12 @@ D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\System.Web.Http.WebHost.xml
 D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.AddEmplyee.resources
 D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\AutoMapper.dll
 D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\AutoMapper.xml
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.customizeWithDto.resources
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.SeedUsers.resources
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.AddLicense.resources
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\Glimpse.Ado.dll
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\Glimpse.Core.dll
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\Glimpse.EF6.dll
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\Glimpse.AspNet.dll
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\obj\Debug\MVCCourse2017.Migrations.AddRentals.resources
+D:\MY PROJECTS\MVCCourse2017\MVCCourse2017\bin\XmlDocument.xml

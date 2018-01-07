@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MVCCourse2017.Models.Rental>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "RentalGrid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rental Grid</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(g => g.Id).Titled("Rental ID").SetWidth(110).Sortable(true).Filterable(true);
+    columns.Add(g => g.Customer.Name).Sortable(true).Filterable(true);
+    columns.Add(g => g.Movie.Name).Sortable(true).Titled("Movie").Filterable(true);
+    columns.Add(g => g.DateRented).Format("{0:dd/MM/yyyy}").Filterable(true);
+    columns.Add(g => g.DateReturned).Format("{0:dd/MM/yyyy}").Filterable(true);
+    columns.Add().
+    Encoded(false).
+    Sanitized(false).
+    SetWidth(230).
+    RenderValueAs
+    (
+        Itm => @Html.ActionLink("Delete", "Delete", new { id = Itm.Id })
+    );
+}).WithPaging(5)
+
+
+

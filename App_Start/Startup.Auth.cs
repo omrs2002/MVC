@@ -54,9 +54,11 @@ namespace MVCCourse2017
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+
+            app.UseFacebookAuthentication(
+                    appId: "200700490489061",
+                    appSecret: "b06d03d139c83e626f5fa51b36c0a857");
+
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

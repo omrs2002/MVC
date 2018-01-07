@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MVCCourse2017.DTOs;
 using MVCCourse2017.Models;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,9 @@ namespace MVCCourse2017.App_Start
 
             Mapper.CreateMap<GenreDto, Genre>();
             Mapper.CreateMap<Genre, GenreDto>();
-            
 
-
-
+            Mapper.CreateMap<NewRentalDto, Rental>();
+            Mapper.CreateMap<Rental, NewRentalDto>();
         }
 
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVCCourse2017.ViewModels;
+using AutoMapper;
 
 namespace MVCCourse2017.Controllers
 {
@@ -30,7 +31,13 @@ namespace MVCCourse2017.Controllers
             var xcust = _context.Customers.Include(c => c.MembershipType).ToList();
             return View(xcust);
         }
-
+  
+        // GET: Customers
+        public ActionResult CustomersGrid()
+        {
+            var xcust = _context.Customers.Include(c => c.MembershipType).ToList(); 
+            return View(xcust);
+        }
         public ViewResult Index2()
         {return View();}
 
@@ -75,6 +82,7 @@ namespace MVCCourse2017.Controllers
             
         }
 
+
         // GET: Customers
         public ActionResult Create()
         {
@@ -90,9 +98,10 @@ namespace MVCCourse2017.Controllers
         public ActionResult Details(int id)
         {
             var xcust = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
-
-            //IEnumerable<MVCCourse2017.Models.Customer> xx = xcust;
+            //var xustDto =  Mapper.Map<Customer, CustomerDto>(xcust);
+            //return View(xustDto);
             return View(xcust);
+
         }
 
 

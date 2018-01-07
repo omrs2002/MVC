@@ -48,6 +48,7 @@ namespace MVCCourse2017.Controllers
             return View(xEmp);
         }
 
+
         public ActionResult Index(int? id)
         {
             if (!id.HasValue)

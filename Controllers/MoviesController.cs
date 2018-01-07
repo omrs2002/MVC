@@ -26,10 +26,48 @@ namespace MVCCourse2017.Controllers
         public ActionResult Index()
         {
             var xMovies = _context.Movies.Include(c => c.Genre).ToList();
+            if(User.IsInRole(RolesNames.CanManageMovies))
+                return View(xMovies);
+            else
+                return View("IndexReadOnly", xMovies);
+        }
+
+         // GET: Movies
+        public ActionResult IndexReadOnly()
+        {
+            var xMovies = _context.Movies.Include(c => c.Genre).ToList();
             return View(xMovies);
         }
 
-  // GET: Movies
+        public ActionResult MoviesGrid()
+        {
+            var xMovies = _context.Movies.Include(c => c.Genre).ToList();
+            return View(xMovies);
+        }
+
+        // GET: Movies
+        [Authorize(Roles = RolesNames.CanManageMovies)]
+        public ActionResult Index2()
+        {
+            var xMovies = _context.Movies.Include(c => c.Genre).ToList();
+            return View(xMovies);
+        }
+
+        [Authorize(Roles = RolesNames.CanManageMovies)]
+        public ActionResult Delete(int id)
+        {
+            Movie movieDto = _context.Movies.Find(id);
+            if (movieDto == null)
+                throw new Exception("Customer Not Found");
+
+            _context.Movies.Remove(movieDto);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
+
+
+
+        [Authorize(Roles = RolesNames.CanManageMovies)]
         public ActionResult Edit(int id)
         {
             var xMovies = _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == id);
@@ -41,7 +79,21 @@ namespace MVCCourse2017.Controllers
             return View("Create",vm);
         }
 
+
+        // GET: Movies
+        public ActionResult Details(int id)
+        {
+            var xMovies = _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == id);
+            MovieVM vm = new MovieVM
+            {
+                Movie = xMovies,
+                Genres = _context.Genres
+            };
+            return View(vm);
+        }
+
         [HttpPost]
+        [Authorize(Roles = RolesNames.CanManageMovies)]
         public ActionResult Save(MovieVM viewModel)
         {
             try
@@ -78,7 +130,7 @@ namespace MVCCourse2017.Controllers
 
         }
 
-        // GET: Customers
+        [Authorize(Roles = RolesNames.CanManageMovies)]
         public ActionResult Create()
         {
             MovieVM vm = new MovieVM

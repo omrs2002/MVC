@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MVCCourse2017.Models.Movie>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "MoviesGrid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Movies Grid</h2>
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(g => g.Id).Titled("Movie ID").SetWidth(110).Sortable(true).Filterable(true);
+    columns.Add(g => g.Name).Sortable(true).Filterable(true);
+    columns.Add(g => g.Genre.Name).Sortable(true).Titled("Genre");
+    columns.Add(g => g.DateAdded).Format("{0:dd/MM/yyyy}");
+    columns.Add(g => g.NumberInStock);
+    columns.Add(g => g.ReleaseDate).Format("{0:dd/MM/yyyy}");
+    columns.Add().
+    Titled("Edit").
+    Encoded(false).
+    Sanitized(false).
+    SetWidth(230).
+    RenderValueAs
+    (
+        Itm => @Html.ActionLink("Details", "Details", new { id = Itm.Id }) +
+        " " + @Html.ActionLink("Edit", "Edit", new { id = Itm.Id }) +
+        " " + @Html.ActionLink("Delete", "Delete", new { id = Itm.Id })
+    );
+
+}).WithPaging(5)
